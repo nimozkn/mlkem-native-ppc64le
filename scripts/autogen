@@ -698,7 +698,7 @@ def gen_preprocessor_comments_for(parser, source_file):
     content = read_file(source_file)
     new_content = adjust_preprocessor_comments_for_filename(
         content, source_file, parser, show_status=True
-    )
+        )
     update_file(source_file, new_content)
 
 
@@ -2977,12 +2977,17 @@ def native_fips202_armv81m(c):
     return native_fips202(c) and armv81m(c)
 
 
+def native_fips202_ppc64le(c):
+    return native_fips202(c) and ppc64le(c)
+
+
 def native_fips202_core(c):
     return (
         native_fips202(c)
         and not native_fips202_x86_64(c)
         and not native_fips202_aarch64(c)
         and not native_fips202_armv81m(c)
+        and not native_fips202_ppc64le(c)
     )
 
 
@@ -3104,6 +3109,11 @@ def gen_macro_undefs(extra_notes=None):
     yield "#if defined(MLK_SYS_ARMV81M_MVE)"
     yield from gen_monolithic_undef_all_core(
         filt=native_fips202_armv81m, desc="native code (FIPS202, Armv8.1-M)"
+    )
+    yield "#endif"
+    yield "#if defined(MLK_SYS_PPC64LE)"
+    yield from gen_monolithic_undef_all_core(
+        filt=native_fips202_ppc64le, desc="native code (FIPS202, PPC64LE)",
     )
     yield "#endif"
     yield "#endif"
@@ -3231,6 +3241,10 @@ def gen_monolithic_source_file():
         for c in filter(native_fips202_armv81m, c_sources):
             yield f'#include "{c}"'
         yield "#endif"
+        yield "#if defined(MLK_SYS_PPC64LE)"
+        for c in filter(native_fips202_ppc64le, c_sources):
+            yield f'#include "{c}"'
+        yield "#endif"
         yield "#endif"
         yield ""
         yield from gen_macro_undefs()
@@ -3320,6 +3334,10 @@ def gen_monolithic_asm_file():
         yield "#endif"
         yield "#if defined(MLK_SYS_ARMV81M_MVE)"
         for c in filter(native_fips202_armv81m, asm_sources):
+            yield f'#include "{c}"'
+        yield "#endif"
+        yield "#if defined(MLK_SYS_PPC64LE)"
+        for c in filter(native_fips202_ppc64le, asm_sources):
             yield f'#include "{c}"'
         yield "#endif"
         yield "#endif"

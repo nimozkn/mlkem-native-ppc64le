@@ -7,7 +7,8 @@ ifeq ($(OPT),1)
                         $(wildcard mlkem/src/fips202/native/aarch64/src/*.c) \
                         $(wildcard mlkem/src/fips202/native/x86_64/src/*.c)  \
                         $(wildcard mlkem/src/fips202/native/x86_64/src/*.S)  \
-                        $(wildcard mlkem/src/fips202/native/armv81m/src/*.[csS])
+                        $(wildcard mlkem/src/fips202/native/armv81m/src/*.[csS]) \
+                        $(wildcard mlkem/src/fips202/native/ppc64le/src/*.[csS])
 endif
 
 SOURCES += $(wildcard mlkem/src/*.c)

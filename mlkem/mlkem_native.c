@@ -109,6 +109,10 @@
 #include "src/fips202/native/armv81m/src/keccak_f1600_x4_mve.c"
 #include "src/fips202/native/armv81m/src/keccakf1600_round_constants.c"
 #endif
+#if defined(MLK_SYS_PPC64LE)
+#include "src/fips202/native/ppc64le/src/keccakf1600_ppc64le.c"
+#include "src/fips202/native/ppc64le/src/keccakf1600_round_constants.c"
+#endif
 #endif /* MLK_CONFIG_USE_NATIVE_BACKEND_FIPS202 */
 
 /* Macro #undef's
@@ -485,6 +489,101 @@
 #undef mlk_keccak_f1600_x4_state_xor_bytes_asm
 #undef mlk_keccakf1600_round_constants
 #endif /* MLK_SYS_ARMV81M_MVE */
+#if defined(MLK_SYS_PPC64LE)
+/*
+ * Undefine macros from native code (FIPS202, PPC64LE)
+ */
+/* mlkem/src/fips202/native/ppc64le/auto.h */
+#undef MLK_FIPS202_NATIVE_PPC64LE_AUTO_H
+#undef MLK_FIPS202_PPC64LE
+/* mlkem/src/fips202/native/ppc64le/src/keccakf1600_ppc64le.h */
+#undef MLK_FIPS202_NATIVE_PPC64LE_SRC_KECCAKF1600_PPC64LE_H
+#undef mlk_keccakf1600x4_permute_ppc64le
+/* mlkem/src/fips202/native/ppc64le/src/macros.h */
+#undef MLK_ADD
+#undef MLK_AND
+#undef MLK_CHI
+#undef MLK_CTHETA
+#undef MLK_DTHETA
+#undef MLK_FIPS202_NATIVE_PPC64LE_SRC_MACROS_H
+#undef MLK_KECCAKF_CHI
+#undef MLK_KECCAKF_IOTA
+#undef MLK_KECCAKF_RHOPI
+#undef MLK_KECCAKF_ROUND
+#undef MLK_KECCAKF_THETA_INIT
+#undef MLK_KECCAKF_THETA_PROCESS
+#undef MLK_LSL
+#undef MLK_OR
+#undef MLK_RHO0
+#undef MLK_RHO1
+#undef MLK_RHO10
+#undef MLK_RHO11
+#undef MLK_RHO12
+#undef MLK_RHO13
+#undef MLK_RHO14
+#undef MLK_RHO15
+#undef MLK_RHO16
+#undef MLK_RHO17
+#undef MLK_RHO18
+#undef MLK_RHO19
+#undef MLK_RHO2
+#undef MLK_RHO20
+#undef MLK_RHO21
+#undef MLK_RHO22
+#undef MLK_RHO23
+#undef MLK_RHO3
+#undef MLK_RHO4
+#undef MLK_RHO5
+#undef MLK_RHO6
+#undef MLK_RHO7
+#undef MLK_RHO8
+#undef MLK_RHO9
+#undef MLK_RHOPI
+#undef MLK_SET_R0_TO_R4
+#undef MLK_SET_R10_TO_R14
+#undef MLK_SET_R15_TO_R19
+#undef MLK_SET_R20_TO_R24
+#undef MLK_SET_R5_TO_R9
+#undef MLK_VINT32_WIDTH
+#undef MLK_VINT64_0
+#undef MLK_VINT64_1
+#undef MLK_VINT64_CONST
+#undef MLK_VPERM
+#undef MLK_VRL
+#undef MLK_VROTL64
+#undef MLK_XKECCAKF_ROUND24
+#undef MLK_XLOADST_MULT
+#undef MLK_XOR
+#undef MLK_XRhoPIChiVARS
+#undef MLK_XSTATEVARS
+#undef MLK_XSTOREST_MULT
+#undef MLK_XTHETAVARS
+#undef mlk_keccakf_1600_2x_ppc64le
+/* mlkem/src/fips202/native/ppc64le/src/util.h */
+#undef MLK_FIPS202_NATIVE_PPC64LE_SRC_UTIL_H
+#undef MLK_KECCAK_BITS_TOTAL
+#undef MLK_KECCAK_DOM
+#undef MLK_KECCAK_STATE_BYTES
+#undef MLK_KECCAKl
+#undef MLK_LANE_BYTES
+#undef MLK_NROUNDS
+#undef MLK_NUM_OF_ROUNDS
+#undef MLK_SHA3_224_DIGEST
+#undef MLK_SHA3_256_DIGEST
+#undef MLK_SHA3_384_DIGEST
+#undef MLK_SHA3_512_DIGEST
+#undef MLK_SHA3_SUFFIX
+#undef MLK_SHAKE128_DIGEST
+#undef MLK_SHAKE256_DIGEST
+#undef MLK_SHAKE_SUFFIX
+#undef MLK_SLICE
+#undef MLK_STATE_SIZE
+#undef MLK_WORDSZ
+#undef mlk_keccakf1600_round_constants_ppc64le
+/* mlkem/src/fips202/native/ppc64le/x4_ppc64le.h */
+#undef MLK_FIPS202_NATIVE_PPC64LE_X4_PPC64LE_H
+#undef MLK_USE_NATIVE_FIPS202_X4
+#endif /* MLK_SYS_PPC64LE */
 #endif /* MLK_CONFIG_USE_NATIVE_BACKEND_FIPS202 */
 #if defined(MLK_CONFIG_USE_NATIVE_BACKEND_ARITH)
 /* mlkem/src/native/api.h */

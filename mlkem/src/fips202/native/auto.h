@@ -20,8 +20,12 @@
 #include "x86_64/keccak_f1600_x4_avx2.h"
 #endif
 
+#if defined(MLK_SYS_PPC64LE)
+#include "ppc64le/auto.h"
+#endif
+
 /* We do not yet include the FIPS202 backend for Armv8.1-M+MVE by default
- * as it is still experimental and undergoing review. */
+* as it is still experimental and undergoing review. */
 /* #if defined(MLK_SYS_ARMV81M_MVE) */
 /* #include "armv81m/mve.h" */
 /* #endif */
